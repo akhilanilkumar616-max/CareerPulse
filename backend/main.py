@@ -1,5 +1,6 @@
 import logging
 import os
+import threading
 from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
@@ -10,7 +11,6 @@ from api.routes.analysis import router as analysis_router
 from api.routes.history import router as history_router
 from api.routes.profile import router as profile_router
 from database import init_db
-from services.skill_matcher import SkillMatcher
 
 # Load environment configuration
 load_dotenv()
@@ -24,23 +24,25 @@ logger = logging.getLogger("careerpulse-backend")
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    # Startup: Initialize Database Tables
-    logger.info("Initializing PostgreSQL / SQLite database tables...")
-    try:
-        init_db()
-    except Exception as dbe:
-        logger.error(f"Database table initialization warning: {dbe}")
+    """
+    Non-blocking lifespan manager.
+    Ensures instantaneous startup so Uvicorn binds to $PORT immediately on Render.
+    Heavy AI models are loaded lazily on the first incoming analysis request.
+    Database schema is verified in a background daemon thread without blocking.
+    """
+    logger.info("CareerPulse Backend starting up...")
 
-    # Startup: Preload Sentence Transformer model into memory
-    logger.info("Starting CareerPulse AI Analysis Engine...")
-    try:
-        SkillMatcher.get_model()
-    except Exception as e:
-        logger.warning(f"Model preloading deferred: {e}")
-        
+    # Non-blocking background database schema verification
+    threading.Thread(target=init_db, daemon=True, name="db-init-worker").start()
+
+    logger.info("AI models configured for lazy loading on demand.")
+    logger.info("FastAPI ready to bind port immediately.")
+
     yield
+
     # Shutdown
-    logger.info("Shutting down CareerPulse AI Analysis Engine.")
+    logger.info("Shutting down CareerPulse Backend.")
+
 
 
 app = FastAPI(

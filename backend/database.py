@@ -1,5 +1,6 @@
 import logging
 import os
+import threading
 from typing import Generator
 from sqlalchemy import create_engine
 from sqlalchemy.orm import declarative_base, sessionmaker, Session
@@ -36,21 +37,39 @@ else:
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base = declarative_base()
 
+_db_initialized = False
+_db_init_lock = threading.Lock()
+
+
+def init_db() -> None:
+    """
+    Create all database tables if they do not exist.
+    Thread-safe and idempotent to prevent redundant schema checks.
+    """
+    global _db_initialized
+    if _db_initialized:
+        return
+
+    with _db_init_lock:
+        if _db_initialized:
+            return
+        try:
+            import models.db_models  # Ensure models are registered with Base.metadata
+            Base.metadata.create_all(bind=engine)
+            _db_initialized = True
+            logger.info("Database schema verified and tables initialized successfully.")
+        except Exception as e:
+            logger.error(f"Failed to initialize database tables: {e}", exc_info=True)
+
 
 def get_db() -> Generator[Session, None, None]:
     """FastAPI dependency that provides a transactional database session."""
+    if not _db_initialized:
+        init_db()
+
     db = SessionLocal()
     try:
         yield db
     finally:
         db.close()
 
-
-def init_db() -> None:
-    """Create all database tables if they do not exist."""
-    try:
-        import models.db_models  # Ensure models are registered with Base.metadata
-        Base.metadata.create_all(bind=engine)
-        logger.info("Database schema verified and tables initialized successfully.")
-    except Exception as e:
-        logger.error(f"Failed to initialize database tables: {e}", exc_info=True)

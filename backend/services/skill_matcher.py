@@ -1,4 +1,6 @@
 import logging
+import os
+import threading
 from typing import Dict, List, Optional, Tuple
 import numpy as np
 
@@ -133,19 +135,38 @@ class SkillMatcher:
     """
 
     _model = None
+    _model_initialized = False
+    _model_lock = threading.Lock()
 
     @classmethod
     def get_model(cls):
-        """Lazy load SentenceTransformer model singleton."""
-        if cls._model is None:
+        """
+        Thread-safe lazy loader for SentenceTransformer model singleton.
+        Loads strictly on the first incoming analysis request, never during app startup,
+        preventing port binding timeouts on cloud environments like Render.
+        """
+        if cls._model_initialized:
+            return cls._model
+
+        with cls._model_lock:
+            if cls._model_initialized:
+                return cls._model
+
+            model_name = os.getenv("SENTENCE_TRANSFORMER_MODEL", "all-MiniLM-L6-v2")
             try:
                 from sentence_transformers import SentenceTransformer
-                logger.info("Loading SentenceTransformer model 'all-MiniLM-L6-v2'...")
-                cls._model = SentenceTransformer("all-MiniLM-L6-v2")
-                logger.info("SentenceTransformer model loaded successfully.")
+                logger.info(f"Lazy loading SentenceTransformer model '{model_name}' on first request...")
+                cls._model = SentenceTransformer(model_name)
+                logger.info(f"SentenceTransformer model '{model_name}' initialized successfully.")
             except Exception as e:
-                logger.warning(f"Failed to load sentence_transformers: {e}. Falling back to token matching.")
+                logger.warning(
+                    f"SentenceTransformer could not be loaded ({e}). "
+                    "Proceeding with rule-based and taxonomy keyword matching fallback."
+                )
                 cls._model = False
+            finally:
+                cls._model_initialized = True
+
         return cls._model
 
     @classmethod

@@ -1,7 +1,6 @@
 import io
 import re
 from typing import Tuple
-import fitz  # PyMuPDF
 
 
 class PDFExtractionError(Exception):
@@ -32,6 +31,10 @@ class PDFExtractor:
             raise PDFExtractionError("Please upload a valid PDF file. The selected file is not a valid PDF document.")
 
         try:
+            try:
+                import pymupdf as fitz
+            except ImportError:
+                import fitz
             doc = fitz.open(stream=file_bytes, filetype="pdf")
         except Exception as e:
             raise PDFExtractionError(f"Unable to read or parse the PDF document: {str(e)}")
