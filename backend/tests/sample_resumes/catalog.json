@@ -1,0 +1,314 @@
+[
+  {
+    "field_id": "software_engineering",
+    "field_name": "Software & Systems Engineering",
+    "position_id": "backend_systems_engineer",
+    "position_title": "Backend Systems Engineer",
+    "candidate_name": "Ethan Vance",
+    "filename": "01_software_backend_engineer.pdf",
+    "filepath": "tests/sample_resumes\\01_software_backend_engineer.pdf",
+    "target_job": {
+      "title": "Senior Backend Software Engineer",
+      "description": "Seeking an experienced Backend Engineer skilled in Python, FastAPI, PostgreSQL, Docker, and REST APIs. Experience with Microservices, Redis, and robust System Design is required. Familiarity with Kubernetes and Git workflows is a plus."
+    }
+  },
+  {
+    "field_id": "software_engineering",
+    "field_name": "Software & Systems Engineering",
+    "position_id": "fullstack_web_developer",
+    "position_title": "Full-Stack Web Developer",
+    "candidate_name": "Maya Lin",
+    "filename": "01_software_fullstack_developer.pdf",
+    "filepath": "tests/sample_resumes\\01_software_fullstack_developer.pdf",
+    "target_job": {
+      "title": "Full Stack Engineer",
+      "description": "We are hiring a Full Stack Developer proficient in React, Node.js, Express, and TypeScript. Must have experience with MongoDB, REST APIs, and Git. Knowledge of GraphQL and Docker containerization is highly valued."
+    }
+  },
+  {
+    "field_id": "frontend_mobile",
+    "field_name": "Frontend & Mobile Development",
+    "position_id": "lead_frontend_engineer",
+    "position_title": "Lead Frontend Engineer",
+    "candidate_name": "Julian Alvarez",
+    "filename": "02_frontend_web_architect.pdf",
+    "filepath": "tests/sample_resumes\\02_frontend_web_architect.pdf",
+    "target_job": {
+      "title": "Senior Frontend Developer",
+      "description": "Looking for a Frontend Specialist skilled in React, TypeScript, Next.js, and Tailwind CSS. The ideal candidate has strong mastery of Redux, REST APIs, HTML5, CSS3, and writing automated Unit Testing suites."
+    }
+  },
+  {
+    "field_id": "frontend_mobile",
+    "field_name": "Frontend & Mobile Development",
+    "position_id": "mobile_app_developer",
+    "position_title": "Mobile Application Developer",
+    "candidate_name": "Priya Patel",
+    "filename": "02_frontend_mobile_engineer.pdf",
+    "filepath": "tests/sample_resumes\\02_frontend_mobile_engineer.pdf",
+    "target_job": {
+      "title": "Flutter Mobile Developer",
+      "description": "Seeking a talented Flutter Developer proficient in Dart, Flutter, Firebase, and REST APIs. Experience with SQLite, Object-Oriented Programming, and mobile app performance optimization is essential."
+    }
+  },
+  {
+    "field_id": "data_science_ai",
+    "field_name": "Data Science & Artificial Intelligence",
+    "position_id": "machine_learning_engineer",
+    "position_title": "Machine Learning Engineer",
+    "candidate_name": "Dr. Marcus Bennett",
+    "filename": "03_data_machine_learning_engineer.pdf",
+    "filepath": "tests/sample_resumes\\03_data_machine_learning_engineer.pdf",
+    "target_job": {
+      "title": "Machine Learning Scientist",
+      "description": "Looking for an ML Engineer skilled in Python, PyTorch, Scikit-Learn, Deep Learning, and Natural Language Processing. Candidates must demonstrate proficiency in Pandas, NumPy, and deploying models using Docker and REST APIs."
+    }
+  },
+  {
+    "field_id": "data_science_ai",
+    "field_name": "Data Science & Artificial Intelligence",
+    "position_id": "bi_data_analyst",
+    "position_title": "Business Intelligence & Data Analyst",
+    "candidate_name": "Chloe Dupont",
+    "filename": "03_data_bi_analyst.pdf",
+    "filepath": "tests/sample_resumes\\03_data_bi_analyst.pdf",
+    "target_job": {
+      "title": "Senior Data & BI Analyst",
+      "description": "We are seeking a Business Intelligence Analyst with deep expertise in SQL, Power BI, Tableau, and Data Analysis. Experience in Python, Pandas, Data Visualization, and Microsoft Excel modeling is required."
+    }
+  },
+  {
+    "field_id": "cloud_devops",
+    "field_name": "Cloud Infrastructure & DevOps",
+    "position_id": "cloud_devops_engineer",
+    "position_title": "Cloud Solutions & DevOps Engineer",
+    "candidate_name": "Liam O'Connor",
+    "filename": "04_cloud_devops_engineer.pdf",
+    "filepath": "tests/sample_resumes\\04_cloud_devops_engineer.pdf",
+    "target_job": {
+      "title": "Cloud DevOps Engineer",
+      "description": "Seeking a Cloud Engineer with extensive experience in AWS, Docker, Kubernetes, and CI/CD pipelines. Must be proficient in Terraform infrastructure-as-code, Linux system administration, Git, and Jenkins."
+    }
+  },
+  {
+    "field_id": "cloud_devops",
+    "field_name": "Cloud Infrastructure & DevOps",
+    "position_id": "site_reliability_engineer",
+    "position_title": "Site Reliability Engineer (SRE)",
+    "candidate_name": "Aisha Al-Mansoor",
+    "filename": "04_cloud_site_reliability_engineer.pdf",
+    "filepath": "tests/sample_resumes\\04_cloud_site_reliability_engineer.pdf",
+    "target_job": {
+      "title": "Site Reliability Engineer (SRE)",
+      "description": "Looking for an SRE skilled in Linux, Kubernetes, Docker, and AWS. Must have strong programming skills in Python and Bash, and proven experience in System Design, Microservices reliability, and CI/CD."
+    }
+  },
+  {
+    "field_id": "cybersecurity",
+    "field_name": "Cybersecurity & Information Security",
+    "position_id": "soc_security_analyst",
+    "position_title": "SOC Operations & Incident Analyst",
+    "candidate_name": "Tariq Washington",
+    "filename": "05_cybersecurity_soc_analyst.pdf",
+    "filepath": "tests/sample_resumes\\05_cybersecurity_soc_analyst.pdf",
+    "target_job": {
+      "title": "Security Operations Center (SOC) Analyst",
+      "description": "Seeking a dedicated Cybersecurity Analyst skilled in SIEM, Incident Response, Network Security, and Firewalls. Experience with Wireshark packet capture analysis, Threat Analysis, and Vulnerability Assessment is essential."
+    }
+  },
+  {
+    "field_id": "cybersecurity",
+    "field_name": "Cybersecurity & Information Security",
+    "position_id": "application_security_engineer",
+    "position_title": "Application Security Engineer",
+    "candidate_name": "Elena Rostova",
+    "filename": "05_cybersecurity_appsec_engineer.pdf",
+    "filepath": "tests/sample_resumes\\05_cybersecurity_appsec_engineer.pdf",
+    "target_job": {
+      "title": "Application Security Engineer",
+      "description": "Looking for an Application Security Engineer proficient in Penetration Testing, OWASP, Vulnerability Assessment, and Secure Code Review. Experience with Cryptography, Identity & Access Management (IAM), and Python is required."
+    }
+  },
+  {
+    "field_id": "civil_engineering",
+    "field_name": "Civil & Structural Engineering",
+    "position_id": "structural_design_engineer",
+    "position_title": "Structural Design Engineer",
+    "candidate_name": "Carlos Mendoza",
+    "filename": "06_civil_structural_engineer.pdf",
+    "filepath": "tests/sample_resumes\\06_civil_structural_engineer.pdf",
+    "target_job": {
+      "title": "Senior Structural Engineer",
+      "description": "Seeking an experienced Structural Engineer skilled in AutoCAD, STAAD.Pro, Structural Analysis, and Revit. Candidates must demonstrate deep knowledge of Concrete Technology, Steel Structures, and Geotechnical Engineering."
+    }
+  },
+  {
+    "field_id": "civil_engineering",
+    "field_name": "Civil & Structural Engineering",
+    "position_id": "construction_safety_manager",
+    "position_title": "Construction Project & Safety Manager",
+    "candidate_name": "Rachel Zimmerman",
+    "filename": "06_civil_construction_safety_manager.pdf",
+    "filepath": "tests/sample_resumes\\06_civil_construction_safety_manager.pdf",
+    "target_job": {
+      "title": "Construction Project Manager",
+      "description": "Hiring a Construction Project Manager experienced in Site Safety, Primavera P6, and Building Information Modeling (BIM). Strong skills in Estimation & Costing, Quantity Surveying, and AutoCAD are required."
+    }
+  },
+  {
+    "field_id": "animation_media",
+    "field_name": "3D Animation & Digital Media",
+    "position_id": "character_animator_rigging",
+    "position_title": "3D Character Animator & Rigging Artist",
+    "candidate_name": "Leo Takahashi",
+    "filename": "07_animation_3d_character_animator.pdf",
+    "filepath": "tests/sample_resumes\\07_animation_3d_character_animator.pdf",
+    "target_job": {
+      "title": "Lead 3D Character Animator",
+      "description": "Seeking an extraordinary 3D Animator skilled in Blender, Maya, Rigging, Keyframing, and Character Animation. Experience with 3D Modeling, Texturing, Storyboarding, and Unreal Engine is a strong advantage."
+    }
+  },
+  {
+    "field_id": "animation_media",
+    "field_name": "3D Animation & Digital Media",
+    "position_id": "motion_graphics_vfx_artist",
+    "position_title": "Motion Graphics & VFX Compositor",
+    "candidate_name": "Zoe Kravitz",
+    "filename": "07_animation_motion_graphics_vfx.pdf",
+    "filepath": "tests/sample_resumes\\07_animation_motion_graphics_vfx.pdf",
+    "target_job": {
+      "title": "Senior Motion Graphics & VFX Designer",
+      "description": "Looking for a Motion Designer proficient in After Effects, Cinema 4D, Motion Graphics, and Compositing. Must have experience with VFX integration, Premiere Pro editing, Storyboarding, and 3D Modeling."
+    }
+  },
+  {
+    "field_id": "healthcare_nursing",
+    "field_name": "Healthcare & Registered Nursing",
+    "position_id": "emergency_icu_nurse",
+    "position_title": "Emergency & ICU Staff Nurse",
+    "candidate_name": "Sarah Jenkins, BSN, RN",
+    "filename": "08_healthcare_emergency_icu_nurse.pdf",
+    "filepath": "tests/sample_resumes\\08_healthcare_emergency_icu_nurse.pdf",
+    "target_job": {
+      "title": "Emergency Department Staff Nurse (RN)",
+      "description": "We are seeking an Emergency Department RN with active BLS Certification and ACLS Certification. Requirements include expertise in Patient Triage, Vital Signs Monitoring, Critical Care, IV Cannulation, and EHR/EMR Charting."
+    }
+  },
+  {
+    "field_id": "healthcare_nursing",
+    "field_name": "Healthcare & Registered Nursing",
+    "position_id": "clinical_nurse_specialist",
+    "position_title": "Clinical Nurse Specialist & Quality Coordinator",
+    "candidate_name": "David Kim, MSN, RN",
+    "filename": "08_healthcare_clinical_ehr_specialist.pdf",
+    "filepath": "tests/sample_resumes\\08_healthcare_clinical_ehr_specialist.pdf",
+    "target_job": {
+      "title": "Clinical Nurse Specialist / Nurse Educator",
+      "description": "Seeking an MSN-qualified Clinical Nurse Specialist. Must possess expertise in EHR/EMR Charting, HIPAA Compliance, Medication Administration, Infection Control, and Clinical Documentation. BLS Certification required."
+    }
+  },
+  {
+    "field_id": "product_management",
+    "field_name": "Product Management & Business Analysis",
+    "position_id": "technical_product_manager",
+    "position_title": "Technical Product Manager",
+    "candidate_name": "Sophia Sterling",
+    "filename": "09_business_technical_product_manager.pdf",
+    "filepath": "tests/sample_resumes\\09_business_technical_product_manager.pdf",
+    "target_job": {
+      "title": "Technical Product Manager",
+      "description": "We are seeking a Technical Product Manager skilled in Agile Development, Scrum, System Design, and Project Management. Must have proven experience with Strategic Planning, Jira, SQL, and user-centric discovery."
+    }
+  },
+  {
+    "field_id": "product_management",
+    "field_name": "Product Management & Business Analysis",
+    "position_id": "business_systems_analyst",
+    "position_title": "Senior Business Systems Analyst",
+    "candidate_name": "Vikram Seth",
+    "filename": "09_business_systems_analyst.pdf",
+    "filepath": "tests/sample_resumes\\09_business_systems_analyst.pdf",
+    "target_job": {
+      "title": "Senior Business Analyst",
+      "description": "Looking for a Business Analyst with strong skills in Business Analysis, SQL, Project Management, and Risk Management. Must be adept in Agile Development, Microsoft Excel, and creating detailed functional specifications."
+    }
+  },
+  {
+    "field_id": "finance_accounting",
+    "field_name": "Finance, Accounting & Investment Banking",
+    "position_id": "investment_financial_analyst",
+    "position_title": "Investment & Financial Analyst",
+    "candidate_name": "Arthur Pendelton",
+    "filename": "10_finance_investment_analyst.pdf",
+    "filepath": "tests/sample_resumes\\10_finance_investment_analyst.pdf",
+    "target_job": {
+      "title": "Senior Financial Analyst",
+      "description": "Seeking a Financial Analyst with proven expertise in Financial Modeling, Valuation, Microsoft Excel, and Budgeting. Experience in Corporate Finance, Risk Management, and Financial Reporting is essential."
+    }
+  },
+  {
+    "field_id": "finance_accounting",
+    "field_name": "Finance, Accounting & Investment Banking",
+    "position_id": "corporate_accountant_auditor",
+    "position_title": "Corporate Accountant & Auditor",
+    "candidate_name": "Natalie Brooks, CPA",
+    "filename": "10_finance_corporate_accountant.pdf",
+    "filepath": "tests/sample_resumes\\10_finance_corporate_accountant.pdf",
+    "target_job": {
+      "title": "Senior Corporate Accountant",
+      "description": "We are seeking a CPA or Senior Accountant experienced in Accounting, General Ledger, Financial Reporting, and Auditing. Must possess strong mastery of Tax Compliance, Budgeting, and Microsoft Excel."
+    }
+  },
+  {
+    "field_id": "product_design",
+    "field_name": "UI/UX Product Design",
+    "position_id": "lead_uiux_designer",
+    "position_title": "Lead UI/UX Product Designer",
+    "candidate_name": "Hannah Kim",
+    "filename": "11_design_senior_uiux_designer.pdf",
+    "filepath": "tests/sample_resumes\\11_design_senior_uiux_designer.pdf",
+    "target_job": {
+      "title": "Senior UI/UX Product Designer",
+      "description": "Seeking an exceptional Product Designer proficient in Figma, UI/UX Design, Wireframing, and Prototyping. Strong portfolio demonstrating Design Systems, User Research, Usability Testing, and User Flows is required."
+    }
+  },
+  {
+    "field_id": "product_design",
+    "field_name": "UI/UX Product Design",
+    "position_id": "usability_interaction_specialist",
+    "position_title": "UX Researcher & Usability Specialist",
+    "candidate_name": "Lucas Moreau",
+    "filename": "11_design_product_interaction_designer.pdf",
+    "filepath": "tests/sample_resumes\\11_design_product_interaction_designer.pdf",
+    "target_job": {
+      "title": "Senior UX Researcher",
+      "description": "Looking for a dedicated UX Researcher experienced in User Research, Usability Testing, Information Architecture, and User Flows. Experience with Figma, Wireframing, Prototyping, and UI/UX Design principles is required."
+    }
+  },
+  {
+    "field_id": "mechanical_engineering",
+    "field_name": "Mechanical Engineering & Robotics",
+    "position_id": "mechanical_design_engineer",
+    "position_title": "Mechanical Design Engineer",
+    "candidate_name": "Henrik Larson",
+    "filename": "12_mechanical_design_engineer.pdf",
+    "filepath": "tests/sample_resumes\\12_mechanical_design_engineer.pdf",
+    "target_job": {
+      "title": "Mechanical Design Engineer",
+      "description": "Seeking an experienced Mechanical Engineer skilled in SolidWorks, CAD, Finite Element Analysis (FEA), and Thermodynamics. Must possess deep expertise in GD&T drafting, CNC Machining, and design for manufacturing."
+    }
+  },
+  {
+    "field_id": "mechanical_engineering",
+    "field_name": "Mechanical Engineering & Robotics",
+    "position_id": "robotics_automation_engineer",
+    "position_title": "Robotics & Automation Engineer",
+    "candidate_name": "Ananya Sharma",
+    "filename": "12_mechanical_robotics_engineer.pdf",
+    "filepath": "tests/sample_resumes\\12_mechanical_robotics_engineer.pdf",
+    "target_job": {
+      "title": "Robotics & Automation Engineer",
+      "description": "Looking for a Robotics Engineer skilled in Robotics, ROS, Embedded C, and Control Systems. Must have hands-on experience with PLC Programming, Python, CAD, and real-time sensor integration."
+    }
+  }
+]
