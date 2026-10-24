@@ -1,5 +1,3 @@
-import 'package:flutter/foundation.dart';
-
 /// API endpoints and configuration for CareerPulse Backend
 class ApiConstants {
   ApiConstants._();
