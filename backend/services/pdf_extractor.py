@@ -26,40 +26,55 @@ class PDFExtractor:
         if len(file_bytes) > cls.MAX_FILE_SIZE:
             raise PDFExtractionError("The uploaded file exceeds the 5 MB limit. Please upload a smaller PDF.")
 
-        # Check PDF Magic Header %PDF-
-        if not file_bytes.startswith(b"%PDF-"):
+        # Check PDF Magic Header %PDF- anywhere in first 1024 bytes (standard PDF specification)
+        header_sample = file_bytes[:1024]
+        if b"%PDF-" not in header_sample:
             raise PDFExtractionError("Please upload a valid PDF file. The selected file is not a valid PDF document.")
 
+        extracted_text_chunks = []
         try:
             try:
                 import pymupdf as fitz
             except ImportError:
                 import fitz
             doc = fitz.open(stream=file_bytes, filetype="pdf")
-        except Exception as e:
-            raise PDFExtractionError(f"Unable to read or parse the PDF document: {str(e)}")
 
-        if doc.is_encrypted:
-            try:
-                # Attempt empty password decrypt
-                authenticated = doc.authenticate("")
-                if not authenticated:
+            if doc.is_encrypted:
+                try:
+                    authenticated = doc.authenticate("")
+                    if not authenticated:
+                        raise PDFExtractionError("This PDF is password-protected. Please upload an unlocked PDF resume.")
+                except Exception:
                     raise PDFExtractionError("This PDF is password-protected. Please upload an unlocked PDF resume.")
+
+            total_pages = len(doc)
+            if total_pages == 0:
+                raise PDFExtractionError("The uploaded PDF does not contain any pages.")
+
+            for page_num in range(total_pages):
+                page = doc.load_page(page_num)
+                text = page.get_text("text")
+                if not text or len(text.strip()) == 0:
+                    # Fallback to block extraction if standard text extraction is sparse
+                    blocks = page.get_text("blocks")
+                    text = " ".join([b[4] for b in blocks if len(b) > 4 and isinstance(b[4], str)])
+                if text:
+                    extracted_text_chunks.append(text)
+
+            doc.close()
+        except PDFExtractionError:
+            raise
+        except Exception as e:
+            # Fallback parser attempt using pypdf if available
+            try:
+                import pypdf
+                reader = pypdf.PdfReader(io.BytesIO(file_bytes))
+                for page in reader.pages:
+                    p_text = page.extract_text()
+                    if p_text:
+                        extracted_text_chunks.append(p_text)
             except Exception:
-                raise PDFExtractionError("This PDF is password-protected. Please upload an unlocked PDF resume.")
-
-        total_pages = len(doc)
-        if total_pages == 0:
-            raise PDFExtractionError("The uploaded PDF does not contain any pages.")
-
-        extracted_text_chunks = []
-        for page_num in range(total_pages):
-            page = doc.load_page(page_num)
-            text = page.get_text("text")
-            if text:
-                extracted_text_chunks.append(text)
-
-        doc.close()
+                raise PDFExtractionError(f"Unable to read or parse the PDF document: {str(e)}")
 
         full_raw_text = "\n".join(extracted_text_chunks).strip()
 

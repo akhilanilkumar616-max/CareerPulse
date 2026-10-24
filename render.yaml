@@ -17,8 +17,8 @@ services:
         fromDatabase:
           name: careerpulse-postgres
           property: connectionString
-      - key: SENTENCE_TRANSFORMER_MODEL
-        value: all-MiniLM-L6-v2
+      - key: ENABLE_TRANSFORMERS
+        value: "false"
 
 databases:
   - name: careerpulse-postgres

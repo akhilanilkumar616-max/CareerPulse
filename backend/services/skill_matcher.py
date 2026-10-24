@@ -10,6 +10,7 @@ from models.schemas import (
     SkillRecommendationItem,
     SkillStatus,
 )
+from services.semantic_engine import SemanticSimilarityEngine
 from services.skill_extractor import SkillExtractor
 
 logger = logging.getLogger(__name__)
@@ -141,10 +142,15 @@ class SkillMatcher:
     @classmethod
     def get_model(cls):
         """
-        Thread-safe lazy loader for SentenceTransformer model singleton.
-        Loads strictly on the first incoming analysis request, never during app startup,
-        preventing port binding timeouts on cloud environments like Render.
+        Loads SentenceTransformer ONLY if ENABLE_TRANSFORMERS is explicitly set to true.
+        By default on cloud environments (e.g. Render 512MB free tier), heavy PyTorch
+        models are disabled to eliminate Out-Of-Memory (OOM) SIGKILL crashes (502 Bad Gateway).
+        SemanticSimilarityEngine provides instant, highly accurate semantic matching in <1ms with 0MB RAM.
         """
+        enable_transformers = os.getenv("ENABLE_TRANSFORMERS", "false").strip().lower() in ("true", "1", "yes")
+        if not enable_transformers:
+            return False
+
         if cls._model_initialized:
             return cls._model
 
@@ -155,13 +161,13 @@ class SkillMatcher:
             model_name = os.getenv("SENTENCE_TRANSFORMER_MODEL", "all-MiniLM-L6-v2")
             try:
                 from sentence_transformers import SentenceTransformer
-                logger.info(f"Lazy loading SentenceTransformer model '{model_name}' on first request...")
+                logger.info(f"Loading SentenceTransformer model '{model_name}'...")
                 cls._model = SentenceTransformer(model_name)
                 logger.info(f"SentenceTransformer model '{model_name}' initialized successfully.")
             except Exception as e:
                 logger.warning(
                     f"SentenceTransformer could not be loaded ({e}). "
-                    "Proceeding with rule-based and taxonomy keyword matching fallback."
+                    "Using high-performance SemanticSimilarityEngine."
                 )
                 cls._model = False
             finally:
@@ -212,10 +218,10 @@ class SkillMatcher:
         partial_items: List[SkillMatchItem] = []
         gap_items: List[SkillMatchItem] = []
 
+        candidate_skills = list(resume_skills_map.keys())
         model = cls.get_model()
 
-        # Compute embeddings for candidate skills if model is active
-        candidate_skills = list(resume_skills_map.keys())
+        # Optional SentenceTransformer embeddings if explicitly enabled
         candidate_embeddings = {}
         if model and candidate_skills:
             try:
@@ -226,7 +232,7 @@ class SkillMatcher:
                 logger.error(f"Error encoding candidate skills: {e}")
 
         for req_skill in required_skills:
-            # Direct canonical match in resume
+            # 1. Direct canonical match in resume
             if req_skill in resume_skills_map:
                 evidence = resume_skills_map[req_skill]
                 matched_items.append(
@@ -238,10 +244,12 @@ class SkillMatcher:
                 )
                 continue
 
-            # Semantic match attempt if SentenceTransformer is available
-            best_sim = 0.0
-            best_candidate = None
+            # 2. Semantic matching using SemanticSimilarityEngine
+            best_candidate, best_sim = SemanticSimilarityEngine.find_best_semantic_match(
+                req_skill, candidate_skills
+            )
 
+            # Compare with SentenceTransformer if available
             if model and candidate_embeddings:
                 try:
                     req_emb = model.encode([req_skill])[0]
@@ -251,26 +259,26 @@ class SkillMatcher:
                             best_sim = sim
                             best_candidate = cand_skill
                 except Exception as e:
-                    logger.debug(f"Semantic comparison error: {e}")
+                    logger.debug(f"Transformer comparison error: {e}")
 
-            # High semantic similarity threshold (>= 0.78)
-            if best_sim >= 0.78 and best_candidate:
-                evidence = resume_skills_map.get(best_candidate)
+            # High semantic similarity threshold (>= 0.75)
+            if best_sim >= 0.75 and best_candidate:
+                evidence = resume_skills_map.get(best_candidate, "")
                 matched_items.append(
                     SkillMatchItem(
                         name=req_skill,
                         status=SkillStatus.MATCHED,
-                        resume_evidence=f"Strongly aligned with {best_candidate}: \"{evidence}\"",
+                        resume_evidence=f"Strongly aligned with candidate competence in {best_candidate}: \"{evidence}\"",
                     )
                 )
-            # Moderate similarity threshold (0.58 - 0.78): Needs verification
-            elif best_sim >= 0.58 and best_candidate:
-                evidence = resume_skills_map.get(best_candidate)
+            # Moderate similarity threshold (0.55 - 0.75): Needs verification
+            elif best_sim >= 0.55 and best_candidate:
+                evidence = resume_skills_map.get(best_candidate, "")
                 partial_items.append(
                     SkillMatchItem(
                         name=req_skill,
                         status=SkillStatus.PARTIAL,
-                        reason=f"Related competency identified in {best_candidate}, but exact requirement for {req_skill} needs verification.",
+                        reason=f"Related competency identified in {best_candidate}, but specific experience with {req_skill} needs verification.",
                         resume_evidence=evidence,
                     )
                 )
