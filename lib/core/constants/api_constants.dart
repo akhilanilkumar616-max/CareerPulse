@@ -4,29 +4,17 @@ import 'package:flutter/foundation.dart';
 class ApiConstants {
   ApiConstants._();
 
+  /// Default production Render cloud webservice URL
+  static const String productionUrl = 'https://careerpulse-backend-lhp0.onrender.com';
+
   // Environment variable override if passed during build:
-  // flutter run --dart-define=BACKEND_URL=http://...
+  // flutter run --dart-define=BACKEND_URL=https://...
   static const String _envUrl = String.fromEnvironment('BACKEND_URL');
 
-  // Dynamic default resolution based on platform
+  // Dynamic base URL resolution
   static String get defaultBaseUrl {
     if (_envUrl.isNotEmpty) return _envUrl;
-
-    if (kIsWeb) {
-      return 'http://127.0.0.1:8000';
-    }
-
-    switch (defaultTargetPlatform) {
-      case TargetPlatform.android:
-        // Android Emulator accesses host loopback via 10.0.2.2
-        return 'http://10.0.2.2:8000';
-      case TargetPlatform.iOS:
-      case TargetPlatform.macOS:
-      case TargetPlatform.windows:
-      case TargetPlatform.linux:
-      default:
-        return 'http://127.0.0.1:8000';
-    }
+    return productionUrl;
   }
 
   // Active base URL (customizable in app settings if needed)
@@ -35,4 +23,6 @@ class ApiConstants {
   // Endpoint paths
   static const String healthEndpoint = '/api/v1/health';
   static const String analyzeResumeEndpoint = '/api/v1/analyze-resume';
+  static const String historyEndpoint = '/api/v1/history';
+  static const String profileEndpoint = '/api/v1/profile';
 }
